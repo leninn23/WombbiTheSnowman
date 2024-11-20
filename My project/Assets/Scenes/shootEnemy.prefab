@@ -149,5 +149,5 @@ MonoBehaviour:
   timeAlive: 15
   ally: enemigo
   enemy: Player
-  damage: 2
+  damage: 1
   direction: {x: 0, y: 0, z: 0}

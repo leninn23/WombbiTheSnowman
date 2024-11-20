@@ -9,9 +9,12 @@ public class EnemyController : MonoBehaviour, IDamagable
     public float speed;
     public float health;
     private bool _isGrounded;
+    private bool _hitWallR;
+    private bool _hitWallL;
     private bool _enemyDetected;
     public GameObject _fireBallPrefab;
     private GameObject _target = null;
+    private bool changingDirection;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,19 +27,27 @@ public class EnemyController : MonoBehaviour, IDamagable
     {
         if (!_enemyDetected)
         {
-            Move(); Debug.LogError("wow" + " : " + _enemyDetected);
+            Move();
         }
-        else 
-        {
-            //var fireBall = Instantiate(_fireBallPrefab, transform.position, Quaternion.identity);
-            //fireBall.GetComponent<shoot>().direction = _target.transform.position - transform.position;
-        }
+       
     }
     void Move()
     {
         _isGrounded = Physics.Raycast(transform.position, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
-        if (!_isGrounded)
+        _hitWallR = Physics.Raycast(transform.position, Vector3.right, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
+        _hitWallL = Physics.Raycast(transform.position, Vector3.left, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
+
+        if(_isGrounded && !_hitWallR && !_hitWallL)
+        {
+            changingDirection = false;
+        }
+
+        if ((!_isGrounded || _hitWallL || _hitWallR)&&!changingDirection)
+        {
+            changingDirection = true;
             _direction *= -1;
+            Debug.Log("cambio");
+        }
         _rb.velocity = new Vector2(_direction * speed, 0);
     }
 

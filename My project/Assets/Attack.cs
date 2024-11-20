@@ -33,13 +33,14 @@ public class Attack : MonoBehaviour
         {
             if (TryGetComponent(out EnemyController e))
             {
-                _attacking = false;
                 e.SetEnemyDetected(false,null);
             }
-            target = null; 
+            _attacking = false;
+            target = null;
         }
+      
 
-        if (_attacking) 
+        if (_attacking && target) 
         {
             if(Time.time >= timeLastHit + attackSpeed)
         	{

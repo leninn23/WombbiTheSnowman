@@ -26,9 +26,10 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Vector3 _playerFordward;
     private GameObject _snowBall;
     private Camera _mainCamera;
-    private int[] sizes = { 1, 2, 3, 4, 5 };
-    private int[] speeds = { 14, 11 ,8, 5, 2 };
-    private int[] jumpForces = { 14, 11, 8, 5, 2 };
+    public float[] sizes = { 0.5f, 1f, 1.5f, 2f, 2.5f };
+    public int[] speeds = { 6, 5 ,4, 3, 2 };
+    public int[] jumpForces = { 12, 9, 7, 6, 5 };
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         MovePlayer();
 
-        if (!_snowBall && isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (!_snowBall && Input.GetKeyDown(KeyCode.Space) && isGrounded )
         {
             Jump();
         }
@@ -70,7 +71,6 @@ public class PlayerController : MonoBehaviour, IDamagable
         // Determina en qué rango cae el valor dado
         int index = Mathf.FloorToInt(value / rangeSize);
         index = Mathf.Clamp(index, 0, sizes.Length - 1); // Asegura que el índice esté en el rango de valores disponibles
-        Debug.Log(sizes[index]);
         transform.localScale = new Vector3(sizes[index], sizes[index], sizes[index]);
 
         speed = speeds[index];
@@ -80,9 +80,14 @@ public class PlayerController : MonoBehaviour, IDamagable
     void MovePlayer()
     {
         float x = -Input.GetAxis("Horizontal");
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
+        isGrounded = isGroundPlayer();
+        if (!isGrounded )
+        {
+            x *= 0.8f;
+        }
         _rb.velocity = new Vector2(x * speed, _rb.velocity.y);
         //_rb.AddForce(-Vector3.up*2f, ForceMode.Acceleration);
+        
         if (x != 0)
         {
             transform.LookAt(transform.position + Vector3.right * (x > 0 ? 1 : -1));
@@ -113,7 +118,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         {
             var transform1 = transform;
             var position = new Vector3(
-                transform1.position.x + transform1.forward.x * transform1.lossyScale.x,
+                transform1.position.x + transform1.forward.x * transform1.lossyScale.x *1.01f,
                 transform1.position.y - transform1.lossyScale.y / 2f + snowBallPrefab.transform.lossyScale.y / 2f,
                 transform1.position.z);
             _snowBall = Instantiate(snowBallPrefab, position, Quaternion.identity);
@@ -151,5 +156,14 @@ public class PlayerController : MonoBehaviour, IDamagable
         initialHealth -= damage;
         if (initialHealth < 0)
             Destroy(gameObject);
+    }
+
+    private bool isGroundPlayer()
+    {
+        Debug.Log(transform.lossyScale);
+        Debug.DrawRay(transform.position, -transform.up*2.1f, Color.red, 1f);
+        return Physics.BoxCast(transform.position + Vector3.up *0.1f,transform.lossyScale/2f, Vector3.down, Quaternion.identity,transform.lossyScale.y/2f + 0.2f, LayerMask.GetMask("suelo"));
+        //return Physics.Raycast(transform.position + Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"))
+        //    || Physics.Raycast(transform.position - Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
     }
 }
