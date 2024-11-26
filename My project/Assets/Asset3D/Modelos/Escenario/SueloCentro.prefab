@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 984714875143988024}
   - component: {fileID: 2286040171639433218}
   - component: {fileID: 5198137334488234727}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SueloCentro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2989485194498680884, guid: 8ba787c7ae266eb4d85537b429e4948b, type: 3}
+  - {fileID: 2100000, guid: 0aaeb054cc6b2a648a856c90a8e110b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

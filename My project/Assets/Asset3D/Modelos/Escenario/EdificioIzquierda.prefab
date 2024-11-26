@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5306005688227088769}
   - component: {fileID: 2603414423775341049}
   - component: {fileID: 2377712305107740513}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EdificioIzquierda
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2438756745095387274, guid: 8ba787c7ae266eb4d85537b429e4948b, type: 3}
+  - {fileID: 2100000, guid: a2f3a68f013344742967e2806ef1b4f8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
