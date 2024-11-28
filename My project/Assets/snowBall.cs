@@ -29,7 +29,7 @@ public class snowBall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Physics.Raycast(transform.position, Vector3.down, transform.lossyScale.y/2f +1f, LayerMask.GetMask("suelo")))
+        if (!Physics.Raycast(transform.position + Vector3.left * 0.1f, Vector3.down, transform.lossyScale.y/2f +1f, LayerMask.GetMask("suelo"))&&!Physics.Raycast(transform.position+Vector3.right*0.1f, Vector3.down, transform.lossyScale.y / 2f + 1f, LayerMask.GetMask("suelo")))
         {
             Debug.DrawRay(transform.position, Vector3.down * (transform.lossyScale.y / 2f + 0.1f), new Color(0.75f, 0.05f, 0.03f), 5f);
             Destroy(gameObject);
