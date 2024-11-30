@@ -749,6 +749,7 @@ GameObject:
   - component: {fileID: 3225612484821695301}
   - component: {fileID: 7020547657896756628}
   - component: {fileID: 5492886598210890515}
+  - component: {fileID: 1823588542317621866}
   m_Layer: 6
   m_Name: WOMBI
   m_TagString: Untagged
@@ -765,7 +766,7 @@ Transform:
   m_GameObject: {fileID: 4168181728433886350}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 18.228, y: 5.92, z: -1.226}
+  m_LocalPosition: {x: 18.228, y: 5.94, z: -1.226}
   m_LocalScale: {x: 0.25979152, y: 0.25979152, z: 0.25979152}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -823,9 +824,9 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 88
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &5492886598210890515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -839,21 +840,69 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpForce: 5
+  jumpForce: 10
   snowBallPrefab: {fileID: 615352034436162395, guid: d79f0ec565513ba45a775ca0320a6be7, type: 3}
-  initialHealth: 7
+  initialHealth: 15
   maxHealth: 30
   maxSize: 5
   snowBulletPrefab: {fileID: 5795863929914327879, guid: dd2136ec4c94e914ca339e14f34ac005, type: 3}
   shootForce: 5
-  sizes:
-  - 0.5
+  sizes1:
+  - 0.7
   - 1
   - 1.5
   - 2
   - 2.5
+  posCuelloy:
+  - -0.3
+  - 0.1
+  - 0.92
+  - 1.71
+  - 2.47
+  posCabezaz:
+  - 0.0021
+  - 0.004295351
+  - 0.0127
+  - 0.0206
+  - 0.0282
+  sizesCuellox:
+  - 298.46
+  - 100
+  - 100
+  - 100
+  - 100
+  sizesCuelloy:
+  - 83.26533
+  - 100
+  - 100
+  - 100
+  - 100
   speeds: 0600000005000000040000000300000002000000
   jumpForces: 0c00000009000000070000000600000005000000
+  coyoteTime: 0.2
+  jumpBufferTime: 1
+  animator: {fileID: 0}
+--- !u!95 &1823588542317621866
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4168181728433886350}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6ea1caf9e9e7eae4f89fa74b9bc74c25, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4375121849507466549
 GameObject:
   m_ObjectHideFlags: 0

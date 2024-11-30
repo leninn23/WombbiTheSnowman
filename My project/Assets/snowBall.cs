@@ -11,13 +11,14 @@ public class snowBall : MonoBehaviour
     private Vector3 _originSize;
     private Transform _parentTransform;
     private GameObject _suelo;
+    private int inc;
     
     // Start is called before the first frame update
     void Start()
     {
         _parentTransform = transform.parent;
         _rbParent = _parentTransform.GetComponent<Rigidbody>();
-        _originSize = transform.lossyScale;
+        //_originSize = transform.lossyScale- transform.lossyScale/2;
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.0f,LayerMask.GetMask("suelo")))
         {
@@ -38,26 +39,33 @@ public class snowBall : MonoBehaviour
         {
             if (_rbParent.velocity.magnitude > 0.1f && Vector3.Distance(maxSizeScale,transform.lossyScale)>0.1f)
             {
-                transform.localScale *= 1.0001f;
-                transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.0001f, heightLand + transform.lossyScale.y/2f, transform.position.z);
+                transform.localScale *= 1.0005f;
+                //transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.0001f, transform.position.y , transform.position.z);
             }
+            //heightLand + transform.lossyScale.y / 2f
         }
-        int inc = (int)(transform.lossyScale.x / _originSize.x) - 1;
-        Debug.Log(inc);
+        inc = (int)(transform.lossyScale.y / _originSize.y) - 1;
+        Debug.Log("Inc : " + inc);
 
+    }
+
+    public void SetInitialSize(Vector3 size)
+    {
+        transform.localScale = size;
+        _originSize = size;
     }
 
     public int GetStadistics()
     {
-        int inc =(int) (transform.lossyScale.x / _originSize.x)-1;
-        Debug.Log(inc);
+        //int inc =(int) (transform.lossyScale.x / _originSize.x)-1;
+        Debug.Log("Inc : " + inc);
         return inc;
     }
 
-    private void OnTriggerEnter(Collider collider)
+    /*private void OnTriggerEnter(Collider collider)
     {
         if(collider.gameObject!=_suelo) 
             Destroy(gameObject);
-    }
+    }*/
     
 }

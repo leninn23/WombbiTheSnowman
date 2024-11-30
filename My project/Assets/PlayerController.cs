@@ -45,11 +45,14 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private int index;
 
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         _mainCamera = Camera.main;
         _rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         AssignValues(initialHealth);
     }
 
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         {
             SpawnDespawnSnowBall();
         }
-        if (_snowBall && Input.GetKeyDown(KeyCode.R))
+        if (_snowBall && Input.GetKeyDown(KeyCode.Q))
         {
             ConsumeSnowBall();
         }
@@ -102,9 +105,14 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         float x = Input.GetAxis("Horizontal");
         isGrounded = isGroundPlayer();
-        if (!isGrounded )
+        if (!isGrounded)
         {
             x *= 0.8f;
+            animator.SetFloat("Speed", 0);
+        }
+        else if (isGrounded)
+        {
+            animator.SetFloat("Speed", Math.Abs(x));
         }
         _rb.velocity = new Vector2(-x * speed, _rb.velocity.y);
         //_rb.AddForce(-Vector3.up*2f, ForceMode.Acceleration);
@@ -114,6 +122,15 @@ public class PlayerController : MonoBehaviour, IDamagable
             //transform.LookAt(transform.position + Vector3.right * (x > 0 ? 1 : -1))
             Vector3 direction = new Vector3(-x, 0, 0).normalized;
             transform.forward = direction;
+        }
+
+        if (Math.Abs(x)>0.01 && _snowBall)
+        {
+            animator.SetBool("_snowBall", true);
+        }
+        else
+        {
+            animator.SetBool("_snowBall", false);
         }
     }
 
@@ -126,7 +143,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     void ConsumeSnowBall()
     {
         var inc = _snowBall.GetComponent<snowBall>().GetStadistics();
-        Debug.Log(inc);
+        Debug.Log("Inc : " + inc);
         var incHealth = initialHealth + inc*3;
         initialHealth = Math.Min(maxHealth, incHealth);
 
@@ -142,15 +159,29 @@ public class PlayerController : MonoBehaviour, IDamagable
         {
             var transform1 = transform;
             var position = new Vector3(
-                transform1.position.x + transform1.forward.x * transform1.lossyScale.x * 2f,
-                transform1.position.y - transform1.lossyScale.y + snowBallPrefab.transform.lossyScale.y/4f,
+                transform1.position.x + transform1.forward.x * transform1.lossyScale.x * 1.4f,
+                transform1.position.y - transform1.lossyScale.y*1.5f,
                 transform1.position.z);
             _snowBall = Instantiate(snowBallPrefab, position, Quaternion.identity);
             // transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.00005f, heightLand + transform.lossyScale.y/2f, transform.position.z);
+            Vector3 initialSize = new Vector3(transform.GetChild(4).localScale.z-0.2f, transform.GetChild(4).localScale.y-0.2f, transform.GetChild(4).localScale.x-0.2f); // Tamaño deseado
+            _snowBall.GetComponent<snowBall>().SetInitialSize(initialSize);
             _snowBall.transform.SetParent(transform);
+
+            //Ajustes bola
+            transform.GetChild(4).localScale = new Vector3(1, sizes1[0], sizes1[0]);
+            //Ajustes bufanda
+            transform.GetChild(1).localPosition = new Vector3(-0.01983261f, posCuelloy[0], 0);
+            transform.GetChild(1).localScale = new Vector3(sizesCuellox[0], sizesCuelloy[0], 100);
+            //Ajustes cabeza
+            transform.GetChild(0).transform.GetChild(2).localPosition = new Vector3(0.0001843905f, -0.0001024498f, posCabezaz[0]);
         }
-        else
+        else 
+        {
             Destroy(_snowBall);
+            AssignValues(initialHealth);
+        }
+
     }
     void Shoot()
     {
@@ -191,17 +222,5 @@ public class PlayerController : MonoBehaviour, IDamagable
         return grounded;
         //return Physics.Raycast(transform.position + Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"))
         //    || Physics.Raycast(transform.position - Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
-
-        /*Debug.DrawRay(transform.position, -transform.up * 2.1f, Color.red, 1f); // Visualize the raycast in the editor
-        bool grounded = Physics.BoxCast(
-            transform.position + Vector3.up * 0.1f,
-            transform.lossyScale / 2f,
-            Vector3.down,
-            Quaternion.identity,
-            transform.lossyScale.y / 2f + 0.2f,
-            LayerMask.GetMask("suelo")
-        );
-        Debug.Log($"Grounded: {grounded}"); // Debug if the player is grounded
-        return grounded;*/
     }
 }
