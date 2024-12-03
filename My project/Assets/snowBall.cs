@@ -15,6 +15,11 @@ public class snowBall : MonoBehaviour
     private GameObject _suelo;
     private int inc;
 
+    private float inputMin = 2f;
+    private float inputMax = 10f;
+    private int targetMin = 1;
+    private int targetMax = 30;
+
     public event System.Action<int> OnSnowBallDestroyed;
 
     // Start is called before the first frame update
@@ -64,7 +69,13 @@ public class snowBall : MonoBehaviour
         }*/
 
         //ESTO HAY QUE CAMBIARLO
-        inc = (int)(transform.lossyScale.y / _originSize.y) - 1;
+        //EL tamaño puede variar en 8
+        //Primer rango 0,3 luego 0,5 0,5
+        float preInc = Mathf.Clamp(this.transform.localScale.y, inputMin, inputMax);
+        inc = (int)(targetMin + (preInc - inputMin) * (targetMax - targetMin) / (inputMax - inputMin));
+
+        //inc = (int)(transform.lossyScale.y / _originSize.y) - 1;
+
         Debug.Log("Inc : " + inc);
 
     }

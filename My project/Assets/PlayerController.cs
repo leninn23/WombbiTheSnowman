@@ -178,10 +178,11 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         var inc = _snowBall.GetComponent<snowBall>().GetStadistics();
         Debug.Log("Inc : " + inc);
-        var incHealth = initialHealth + inc*3;
-        initialHealth = Math.Min(maxHealth, incHealth);
+        //var incHealth = initialHealth + inc*3;
+        //initialHealth = Math.Min(maxHealth, incHealth);
 
-        AssignValues(initialHealth);
+        initialHealth = inc;
+        AssignValues(inc);
         //var incSize = Math.Min(inc / 3,maxSize);
         
         Destroy(_snowBall);
@@ -244,7 +245,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         //    transform.localScale -= transform.localScale/initialHealth;
         AssignValues(initialHealth);
         //var incSize = Math.Min(inc / 3,maxSize);*/
-
+        animator.SetTrigger("Attack");
         if (initialHealth <= 1f) return;
 
         // Crear el proyectil enfrente del jugador
