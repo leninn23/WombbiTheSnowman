@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028486, g: 0.22571574, b: 0.306925, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2448,8 +2448,6 @@ MonoBehaviour:
   - 100
   speeds: 0600000005000000040000000300000002000000
   jumpForces: 0c00000009000000070000000600000005000000
-  coyoteTime: 0.2
-  jumpBufferTime: 0.2
   animator: {fileID: 0}
 --- !u!1001 &457446674
 PrefabInstance:
@@ -3408,13 +3406,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.22474268, y: 0.7675323, z: -0.35790473, w: 0.48196378}
+  m_LocalPosition: {x: 27.97, y: 10.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: 115.747, z: 0}
 --- !u!1001 &737685638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9410,7 +9408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1107112735658311017, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.94
+      value: 5.931
       objectReference: {fileID: 0}
     - target: {fileID: 1107112735658311017, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9499,6 +9497,10 @@ PrefabInstance:
     - target: {fileID: 4570839376766709312, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492886598210890515, guid: 11066438920d274428869cb7545c0449, type: 3}
+      propertyPath: shootForce
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5492886598210890515, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: snowBallPrefab

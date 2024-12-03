@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSizeScale: {x: 3, y: 3, z: 3}
+  maxSize: 10
 --- !u!54 &-2970348930500981698
 Rigidbody:
   m_ObjectHideFlags: 0

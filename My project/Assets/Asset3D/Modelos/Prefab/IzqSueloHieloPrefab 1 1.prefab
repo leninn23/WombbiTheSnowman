@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5795863929914327879
+--- !u!1 &3178997169136184288
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 229355539853231909}
-  - component: {fileID: 5774504127828531344}
-  - component: {fileID: 2939018149996135996}
-  - component: {fileID: 6584008541303042177}
-  - component: {fileID: 5294268226695490236}
-  m_Layer: 0
-  m_Name: shootEnemy
+  - component: {fileID: 8987277511740049444}
+  - component: {fileID: 2149764770098761050}
+  - component: {fileID: 1523548252127989752}
+  - component: {fileID: 1756269422976275440}
+  m_Layer: 3
+  m_Name: IzqSueloHieloPrefab 1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &229355539853231909
+--- !u!4 &8987277511740049444
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795863929914327879}
+  m_GameObject: {fileID: 3178997169136184288}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.12187844, y: 6.8347816, z: 2.0791552}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -3.97, y: 5.92, z: -11.183066}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &5774504127828531344
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!33 &2149764770098761050
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795863929914327879}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2939018149996135996
+  m_GameObject: {fileID: 3178997169136184288}
+  m_Mesh: {fileID: 4826165965672405282, guid: 8ba787c7ae266eb4d85537b429e4948b, type: 3}
+--- !u!23 &1523548252127989752
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795863929914327879}
+  m_GameObject: {fileID: 3178997169136184288}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ddd7319b5cfe3fe45882b90aca75d17c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,14 +84,14 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6584008541303042177
-SphereCollider:
+--- !u!65 &1756269422976275440
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795863929914327879}
-  m_Material: {fileID: 0}
+  m_GameObject: {fileID: 3178997169136184288}
+  m_Material: {fileID: 13400000, guid: b58d6625681f64d4485649ea477e3aae, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -101,25 +100,8 @@ SphereCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5294268226695490236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5795863929914327879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca04f52802aa72a409f9fd17faab0a8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeAlive: 15
-  ally: enemigo
-  enemy: Player
-  damage: 1
-  direction: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9536165, z: 1.3485736}
+  m_Center: {x: -6.1731827e-18, y: -0.14052087, z: 0.0023875237}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using System.Security.Cryptography;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -35,10 +36,10 @@ public class PlayerController : MonoBehaviour, IDamagable
     public float[] sizesCuelloy = { 83.26533f, 100f, 100f, 100f, 100f };
 
     public int[] speeds = { 10, 9 ,7, 6, 4 };
-    public int[] jumpForces = { 12, 9, 7, 6, 5 };
+    public int[] jumpForces = { 15, 10, 8, 5, 3 };
 
-    public float coyoteTime = 0.2f;
-    public float jumpBufferTime = 1f;
+    //public float coyoteTime = 0.2f;
+    //public float jumpBufferTime = 1f;
 
     private float _coyoteTimeCounter;
     private float _jumpBufferCounter;
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     private int index;
 
     public Animator animator;
+    private bool isFacingRight = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -107,12 +110,21 @@ public class PlayerController : MonoBehaviour, IDamagable
         isGrounded = isGroundPlayer();
         if (!isGrounded)
         {
-            x *= 0.8f;
+            x *= 0.7f;
             animator.SetFloat("Speed", 0);
         }
         else if (isGrounded)
         {
             animator.SetFloat("Speed", Math.Abs(x));
+        }
+
+        if (x > 0 && !isFacingRight)
+        {
+            Flip();
+        }
+        else if (x < 0 && isFacingRight)
+        {
+            Flip();
         }
         _rb.velocity = new Vector2(-x * speed, _rb.velocity.y);
         //_rb.AddForce(-Vector3.up*2f, ForceMode.Acceleration);
@@ -132,6 +144,28 @@ public class PlayerController : MonoBehaviour, IDamagable
         {
             animator.SetBool("_snowBall", false);
         }
+    }
+
+    public void Flip()
+    {
+        /*isFacingRight = !isFacingRight;
+
+        // Invertir la escala en el eje X
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+
+        BoxCollider box = GetComponent<BoxCollider>();
+        if (box != null)
+        {
+            Vector3 size = box.size;
+            size.x = Mathf.Abs(size.x); // Force positive size
+            box.size = size;
+        }*/
+        isFacingRight = !isFacingRight;
+
+        // Rotate the character instead of scaling
+        transform.rotation = Quaternion.Euler(0, isFacingRight ? 0 : 180, 0);
     }
 
     void Jump()
@@ -157,15 +191,21 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         if (!_snowBall)
         {
+            //float direction = Mathf.Sign(transform.localScale.x);
+            //transform1.localScale.x
             var transform1 = transform;
+            float direction = isFacingRight ? 1f : -1f;
+            Debug.Log("Derecha : " + isFacingRight);
+
             var position = new Vector3(
-                transform1.position.x + transform1.forward.x * transform1.lossyScale.x * 1.4f,
+                transform1.position.x + transform.forward.x * direction * transform1.lossyScale.x * 1.4f,
                 transform1.position.y - transform1.lossyScale.y*1.5f,
                 transform1.position.z);
             _snowBall = Instantiate(snowBallPrefab, position, Quaternion.identity);
             // transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.00005f, heightLand + transform.lossyScale.y/2f, transform.position.z);
             Vector3 initialSize = new Vector3(transform.GetChild(4).localScale.z-0.2f, transform.GetChild(4).localScale.y-0.2f, transform.GetChild(4).localScale.x-0.2f); // Tamaño deseado
             _snowBall.GetComponent<snowBall>().SetInitialSize(initialSize);
+            _snowBall.GetComponent<snowBall>().OnSnowBallDestroyed += HandleSnowBallDestroyed;
             _snowBall.transform.SetParent(transform);
 
             //Ajustes bola
@@ -176,16 +216,16 @@ public class PlayerController : MonoBehaviour, IDamagable
             //Ajustes cabeza
             transform.GetChild(0).transform.GetChild(2).localPosition = new Vector3(0.0001843905f, -0.0001024498f, posCabezaz[0]);
         }
-        else 
+        /*else 
         {
             Destroy(_snowBall);
             AssignValues(initialHealth);
-        }
+        }*/
 
     }
     void Shoot()
     {
-        if (transform.lossyScale.x < 0.1f || initialHealth == 1) return;
+        /*if (transform.lossyScale.x < 0.1f || initialHealth == 1) return;
         Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
@@ -203,7 +243,26 @@ public class PlayerController : MonoBehaviour, IDamagable
         //if(a>0.1f)
         //    transform.localScale -= transform.localScale/initialHealth;
         AssignValues(initialHealth);
-        //var incSize = Math.Min(inc / 3,maxSize);
+        //var incSize = Math.Min(inc / 3,maxSize);*/
+
+        if (initialHealth <= 1f) return;
+
+        // Crear el proyectil enfrente del jugador
+        var spawnPosition = transform.position + transform.forward * 0.5f + Vector3.up * transform.lossyScale.y / 2f;
+        var bullet = Instantiate(snowBulletPrefab, spawnPosition, Quaternion.identity);
+
+        // Hacer que el proyectil se mueva hacia adelante
+        var rbBullet = bullet.GetComponent<Rigidbody>();
+        if (rbBullet != null)
+        {
+            rbBullet.AddForce(transform.forward * shootForce, ForceMode.Impulse);
+        }
+
+        // Reducir la vida
+        initialHealth -= 1f;
+
+        // Actualizar el tamaño o estado del objeto (si aplica)
+        AssignValues(initialHealth);
     }
 
     public void Damage(float damage)
@@ -223,4 +282,15 @@ public class PlayerController : MonoBehaviour, IDamagable
         //return Physics.Raycast(transform.position + Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"))
         //    || Physics.Raycast(transform.position - Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
     }
+
+    private void HandleSnowBallDestroyed(int stats)
+    {
+        Debug.Log($"La bola de nieve fue destruida con estadísticas: {stats}");
+        var incHealth = initialHealth + stats * 3;
+        initialHealth = Math.Min(maxHealth, incHealth);
+
+        AssignValues(initialHealth);
+        // Aquí puedes agregar lógica para devolver las estadísticas al jugador.
+    }
+
 }
