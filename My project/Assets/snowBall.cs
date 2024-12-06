@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class snowBall : MonoBehaviour
 {
     public Vector3 maxSizeScale;
-    public float maxSize = 10f;
+    public float maxSize = 6f;
     
     private Rigidbody _rbParent;
     //private float heightLand;
@@ -16,7 +16,7 @@ public class snowBall : MonoBehaviour
     private int inc;
 
     private float inputMin = 2f;
-    private float inputMax = 10f;
+    private float inputMax = 6f;
     private int targetMin = 1;
     private int targetMax = 30;
 
@@ -68,7 +68,6 @@ public class snowBall : MonoBehaviour
             transform.localScale = new Vector3(maxSize, maxSize, this.transform.localScale.z);
         }*/
 
-        //ESTO HAY QUE CAMBIARLO
         //EL tamaño puede variar en 8
         //Primer rango 0,3 luego 0,5 0,5
         float preInc = Mathf.Clamp(this.transform.localScale.y, inputMin, inputMax);

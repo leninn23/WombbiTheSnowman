@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 281684104572715137}
   - component: {fileID: -2970348930500981698}
   m_Layer: 0
-  m_Name: snowBall
+  m_Name: DEPRECATEDsnowBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

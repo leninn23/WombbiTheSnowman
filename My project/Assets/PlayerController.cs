@@ -11,13 +11,15 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerController : MonoBehaviour, IDamagable
 {
+    [SerializeField] private Transform checkpoint;
+    public float respawnDelay = 2f;
 
     public float speed;
     public float jumpForce;
     public GameObject snowBallPrefab;
     public float initialHealth;
     public float maxHealth;
-    public float maxSize;
+    //public float maxSize;
     public GameObject snowBulletPrefab;
     public float shootForce;
     
@@ -27,7 +29,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Vector3 _playerFordward;
     private GameObject _snowBall;
     private Camera _mainCamera;
-    public float[] sizes1 = { 0.7f, 1f, 1.5f, 2f, 2.5f };
+    /*public float[] sizes1 = { 0.7f, 1f, 1.5f, 2f, 2.5f };
 
     public float[] posCuelloy = { -0.3f, 0.1f, 0.92f, 1.71f, 2.47f };
     public float[] posCabezaz = { 0.0021f, 0.004295351f, 0.0127f, 0.0206f, 0.0282f };
@@ -36,7 +38,18 @@ public class PlayerController : MonoBehaviour, IDamagable
     public float[] sizesCuelloy = { 83.26533f, 100f, 100f, 100f, 100f };
 
     public int[] speeds = { 10, 9 ,7, 6, 4 };
-    public int[] jumpForces = { 15, 10, 8, 5, 3 };
+    public int[] jumpForces = { 15, 10, 8, 5, 3 };*/
+
+    private float[] sizes1 = { 0.7f, 1f, 1.5f};
+
+    private float[] posCuelloy = { -0.3f, 0.1f, 0.92f};
+    private float[] posCabezaz = { 0.0021f, 0.004295351f, 0.0127f};
+
+    private float[] sizesCuellox = { 298.46f, 100f, 100f};
+    private float[] sizesCuelloy = { 83.26533f, 100f, 100f};
+
+    private int[] speeds = { 7, 5, 3};
+    private int[] jumpForces = { 13, 10, 7};
 
     //public float coyoteTime = 0.2f;
     //public float jumpBufferTime = 1f;
@@ -46,7 +59,7 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     private int index;
 
-    public Animator animator;
+    private Animator animator;
     private bool isFacingRight = true;
 
 
@@ -177,7 +190,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     void ConsumeSnowBall()
     {
         var inc = _snowBall.GetComponent<snowBall>().GetStadistics();
-        Debug.Log("Inc : " + inc);
+        //Debug.Log("Inc : " + inc);
         //var incHealth = initialHealth + inc*3;
         //initialHealth = Math.Min(maxHealth, incHealth);
 
@@ -270,7 +283,26 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         initialHealth -= damage;
         if (initialHealth < 0)
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Die();
+    }
+
+    public void Die()
+    {
+        // Desactiva al jugador momentáneamente
+        gameObject.SetActive(false);
+
+        // Llama a la función de reaparición después de un retraso
+        Invoke(nameof(Respawn), respawnDelay);
+    }
+
+    private void Respawn()
+    {
+        // Reaparece en el punto de control
+        transform.position = checkpoint.position;
+        initialHealth = 15;
+        AssignValues(initialHealth);
+        gameObject.SetActive(true);
     }
 
     private bool isGroundPlayer()
@@ -278,7 +310,7 @@ public class PlayerController : MonoBehaviour, IDamagable
         Debug.Log(transform.lossyScale);
         Debug.DrawRay(transform.position, -transform.up * 2.1f, Color.red, 1f);
         bool grounded = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale / 2f, Vector3.down, Quaternion.identity, transform.lossyScale.y + 0.2f, LayerMask.GetMask("suelo"));
-        Debug.Log($"Grounded: {grounded}"); // Debug if the player is grounded
+        //Debug.Log($"Grounded: {grounded}"); // Debug if the player is grounded
         return grounded;
         //return Physics.Raycast(transform.position + Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"))
         //    || Physics.Raycast(transform.position - Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"));
@@ -294,4 +326,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         // Aquí puedes agregar lógica para devolver las estadísticas al jugador.
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Vacio"))
+        {
+            Die();
+        }
+    }
 }
