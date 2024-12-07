@@ -198,19 +198,18 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void Jump()
     {
-        audioManager.PlaySFX(audioManager.saltar);
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector3.up * jumpForces[index], ForceMode.Impulse);
     }
 
     void ConsumeSnowBall()
     {
-        audioManager.PlaySFX(audioManager.lanzar_nieve);
         var inc = _snowBall.GetComponent<snowBall>().GetStadistics();
+
         //Debug.Log("Inc : " + inc);
         //var incHealth = initialHealth + inc*3;
         //initialHealth = Math.Min(maxHealth, incHealth);
-
+        AudioManager.PlaySound(SoundType.LANZAR_NIEVE);
         initialHealth = inc;
         AssignValues(inc);
         //var incSize = Math.Min(inc / 3,maxSize);
@@ -233,7 +232,7 @@ public class PlayerController : MonoBehaviour, IDamagable
                 transform1.position.y - transform1.lossyScale.y*1.5f,
                 transform1.position.z);
             _snowBall = Instantiate(snowBallPrefab, position, Quaternion.identity);
-            audioManager.PlaySFX(audioManager.lanzar_nieve);
+            AudioManager.PlaySound(SoundType.LANZAR_NIEVE);
             // transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.00005f, heightLand + transform.lossyScale.y/2f, transform.position.z);
             Vector3 initialSize = new Vector3(transform.GetChild(4).localScale.z-0.2f, transform.GetChild(4).localScale.y-0.2f, transform.GetChild(4).localScale.x-0.2f); // Tamaño deseado
             _snowBall.GetComponent<snowBall>().SetInitialSize(initialSize);
@@ -283,7 +282,6 @@ public class PlayerController : MonoBehaviour, IDamagable
         var spawnPosition = transform.position + transform.forward * 0.5f + Vector3.up * transform.lossyScale.y / 2f;
         var bullet = Instantiate(snowBulletPrefab, spawnPosition, Quaternion.identity);
         animator.SetTrigger("Attack");
-        audioManager.PlaySFX(audioManager.lanzar_nieve);
 
         // Hacer que el proyectil se mueva hacia adelante
         var rbBullet = bullet.GetComponent<Rigidbody>();
@@ -339,6 +337,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     private void HandleSnowBallDestroyed(int stats)
     {
         Debug.Log($"La bola de nieve fue destruida con estadísticas: {stats}");
+        AudioManager.PlaySound(SoundType.LANZAR_NIEVE);
         var incHealth = initialHealth + stats * 3;
         initialHealth = Math.Min(maxHealth, incHealth);
 

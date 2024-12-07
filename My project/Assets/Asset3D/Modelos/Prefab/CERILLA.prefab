@@ -468,6 +468,7 @@ GameObject:
   - component: {fileID: 781093963298052430}
   - component: {fileID: 996220813220133060}
   - component: {fileID: 1960610362000165373}
+  - component: {fileID: 6465841950072889634}
   m_Layer: 7
   m_Name: CERILLA
   m_TagString: enemigo
@@ -595,6 +596,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyLayer: Player
   fireBallPrefab: {fileID: 5795863929914327879, guid: 0ea1846b5e9f40d479864bc59c16e674, type: 3}
+--- !u!114 &6465841950072889634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5284276507400887845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d368f71e7d6128a488297975c438b07a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6532024582258205582
 GameObject:
   m_ObjectHideFlags: 0
