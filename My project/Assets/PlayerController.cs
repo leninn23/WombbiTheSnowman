@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Vector3 _playerFordward;
     private GameObject _snowBall;
     private Camera _mainCamera;
+
+    AudioManager audioManager;
     /*public float[] sizes1 = { 0.7f, 1f, 1.5f, 2f, 2.5f };
 
     public float[] posCuelloy = { -0.3f, 0.1f, 0.92f, 1.71f, 2.47f };
@@ -62,6 +64,10 @@ public class PlayerController : MonoBehaviour, IDamagable
     private Animator animator;
     private bool isFacingRight = true;
 
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -129,6 +135,15 @@ public class PlayerController : MonoBehaviour, IDamagable
         else if (isGrounded)
         {
             animator.SetFloat("Speed", Math.Abs(x));
+            /*if(!_snowBall)
+            {
+                audioManager.PlaySFX(audioManager.paso);
+            }
+            else 
+            {
+                audioManager.PlaySFX(audioManager.rodar);
+            }*/
+
         }
 
         if (x > 0 && !isFacingRight)
@@ -183,12 +198,14 @@ public class PlayerController : MonoBehaviour, IDamagable
 
     void Jump()
     {
+        audioManager.PlaySFX(audioManager.saltar);
         _rb.velocity = new Vector2(_rb.velocity.x, 0);
         _rb.AddForce(Vector3.up * jumpForces[index], ForceMode.Impulse);
     }
 
     void ConsumeSnowBall()
     {
+        audioManager.PlaySFX(audioManager.lanzar_nieve);
         var inc = _snowBall.GetComponent<snowBall>().GetStadistics();
         //Debug.Log("Inc : " + inc);
         //var incHealth = initialHealth + inc*3;
@@ -216,6 +233,7 @@ public class PlayerController : MonoBehaviour, IDamagable
                 transform1.position.y - transform1.lossyScale.y*1.5f,
                 transform1.position.z);
             _snowBall = Instantiate(snowBallPrefab, position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.lanzar_nieve);
             // transform.position = new Vector3(transform.position.x + _parentTransform.forward.x* 0.00005f, heightLand + transform.lossyScale.y/2f, transform.position.z);
             Vector3 initialSize = new Vector3(transform.GetChild(4).localScale.z-0.2f, transform.GetChild(4).localScale.y-0.2f, transform.GetChild(4).localScale.x-0.2f); // Tamaño deseado
             _snowBall.GetComponent<snowBall>().SetInitialSize(initialSize);
@@ -258,12 +276,14 @@ public class PlayerController : MonoBehaviour, IDamagable
         //    transform.localScale -= transform.localScale/initialHealth;
         AssignValues(initialHealth);
         //var incSize = Math.Min(inc / 3,maxSize);*/
-        animator.SetTrigger("Attack");
+
         if (initialHealth <= 1f) return;
 
         // Crear el proyectil enfrente del jugador
         var spawnPosition = transform.position + transform.forward * 0.5f + Vector3.up * transform.lossyScale.y / 2f;
         var bullet = Instantiate(snowBulletPrefab, spawnPosition, Quaternion.identity);
+        animator.SetTrigger("Attack");
+        audioManager.PlaySFX(audioManager.lanzar_nieve);
 
         // Hacer que el proyectil se mueva hacia adelante
         var rbBullet = bullet.GetComponent<Rigidbody>();

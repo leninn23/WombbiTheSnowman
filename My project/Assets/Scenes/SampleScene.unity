@@ -4205,6 +4205,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0383b5df9deb77e48803527883d1567b, type: 3}
+--- !u!1 &537130904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 537130905}
+  m_Layer: 0
+  m_Name: ---ENEMIGOS---------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &537130905
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 537130904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &557023623 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6049583392421723297, guid: 63f7946b27f1ae247b86c2eaaadf1954, type: 3}
@@ -15015,14 +15046,15 @@ SceneRoots:
   - {fileID: 446492921}
   - {fileID: 1840072251}
   - {fileID: 6470115704946067138}
+  - {fileID: 29110111}
+  - {fileID: 155471179}
+  - {fileID: 537130905}
   - {fileID: 8076663043720908523}
   - {fileID: 1441041473}
-  - {fileID: 155471179}
   - {fileID: 1930687178}
   - {fileID: 1528239041}
   - {fileID: 1945045900}
   - {fileID: 473691213}
-  - {fileID: 29110111}
   - {fileID: 841686407}
   - {fileID: 1139652126}
   - {fileID: 1026369203}

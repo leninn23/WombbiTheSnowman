@@ -1,0 +1,10 @@
+-Campanas click----
+-Andando nieve----
+-Hacer bola de nieve----
+-Lanzar nieve----
+-Lanzar bola de fuego----
+-Sonido salto----
+-Sonido nieve fondo----
+-Recibir daño
+-Apagar fuego
+-Encender fuego----
