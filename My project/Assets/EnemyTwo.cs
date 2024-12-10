@@ -47,6 +47,7 @@ public class EnemyTwo : MonoBehaviour,IDamagable
         var enemigo = Physics.OverlapSphere(transform.position, rangeVision, LayerMask.GetMask("Player"));
         if (enemigo.Length > 0 && _currentTimeMoving<maxTimeMoving)
         {
+            Debug.Log("Enemigo detectado");
             _currentTimeMoving += Time.deltaTime;
             enemyClose = true;
             var direction = enemigo[0].transform.position - transform.position;

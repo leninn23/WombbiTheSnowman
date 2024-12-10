@@ -4625,7 +4625,7 @@ Transform:
   m_GameObject: {fileID: 528986398}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.81, z: -1.226}
+  m_LocalPosition: {x: 0, y: 1.72, z: -1.226}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6274,7 +6274,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.96981126, g: 0.8402901, b: 0.66422915, a: 1}
+  m_Color: {r: 0.6627451, g: 0.89067364, b: 0.96862745, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -6760,6 +6760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 775377798}
   - component: {fileID: 775377797}
+  - component: {fileID: 775377799}
   m_Layer: 0
   m_Name: CAMBIO DE NIVEL
   m_TagString: Untagged
@@ -6782,7 +6783,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -6803,6 +6804,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &775377799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775377796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 995ab65e16194df40903c21c664bac67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextLevel: Nivel2
 --- !u!1001 &783285085
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11743,6 +11757,10 @@ PrefabInstance:
     - target: {fileID: 8011362137873275784, guid: 80b7b84ded5ee0346b7917d16d028029, type: 3}
       propertyPath: m_Name
       value: CentEdificioPrefab (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8011362137873275784, guid: 80b7b84ded5ee0346b7917d16d028029, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16956,6 +16974,10 @@ PrefabInstance:
     - target: {fileID: 4168181728433886350, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4168181728433886350, guid: 11066438920d274428869cb7545c0449, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4375121849507466549, guid: 11066438920d274428869cb7545c0449, type: 3}
       propertyPath: m_Layer
