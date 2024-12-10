@@ -6,6 +6,7 @@ TagManager:
   tags:
   - enemigo
   - Audio
+  - suelo
   layers:
   - Default
   - TransparentFX
