@@ -8,7 +8,7 @@ public class Attack : MonoBehaviour
     private GameObject target = null;
     private bool _attacking;
     private float timeLastHit;
-    private float attackSpeed = 2.0f;
+    private float attackSpeed = 2.5f;
     public GameObject fireBallPrefab;
 
     private BoxCollider _collider;
@@ -25,6 +25,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateDirection();
         Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(3, 3, 2), Quaternion.identity, LayerMask.GetMask(enemyLayer));
         colliderCenter = _collider.bounds.center;
         if (!target && colliders.Length > 0)
@@ -34,8 +35,9 @@ public class Attack : MonoBehaviour
             {
                 _attacking = true;
                 e.SetEnemyDetected(true,target);
-                animator.SetTrigger("Jugador");
-                animator.SetTrigger("Atacar");
+
+                //animator.SetTrigger("Jugador");
+                animator.SetBool("Atacar", true);
             }
         }
         else if(target && colliders.Length == 0)
@@ -53,12 +55,28 @@ public class Attack : MonoBehaviour
         {
             if(Time.time >= timeLastHit + attackSpeed)
         	{
-
                 var fireBall = Instantiate(fireBallPrefab,colliderCenter,Quaternion.identity);
                 Vector3 h = target.transform.position - transform.position;
                 h.Normalize();
                 fireBall.GetComponent<shoot>().direction = h;
                 timeLastHit = Time.time;
+            }
+        }
+    }
+
+    void UpdateDirection()
+    {
+        if (target)
+        {
+            Vector3 direction = target.transform.position - transform.position;
+
+            if (direction.x < 0) // Si el jugador está a la izquierda
+            {
+                animator.SetBool("facingleft", true);
+            }
+            else // Si el jugador está a la derecha
+            {
+                animator.SetBool("facingleft", false);
             }
         }
     }

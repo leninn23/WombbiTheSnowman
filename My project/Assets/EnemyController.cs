@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour, IDamagable
 
     private Animator animator;
 
-    private bool isFacingRight = true;
+    private bool isFacingRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -73,13 +73,13 @@ public class EnemyController : MonoBehaviour, IDamagable
             Debug.Log("cambio");
         }
 
-        if (_direction > 0 && !isFacingRight)
+        if (_direction > 0)
         {
-            Flip();
+            animator.SetBool("facingleft", false);
         }
-        else if (_direction < 0 && isFacingRight)
+        else if (_direction < 0)
         {
-            Flip();
+            animator.SetBool("facingleft", true);
         }
         _rb.velocity = new Vector2(_direction * speed, 0);
 
@@ -89,8 +89,6 @@ public class EnemyController : MonoBehaviour, IDamagable
     public void Flip()
     {
         isFacingRight = !isFacingRight;
-
-        // Rotate the character instead of scaling
         transform.rotation = Quaternion.Euler(0, isFacingRight ? 0 : 180, 0);
     }
 
@@ -110,6 +108,8 @@ public class EnemyController : MonoBehaviour, IDamagable
         }
         else 
         {
+            animator.SetBool("Atacar", false);
+            Debug.Log("Enemigo perdido");
             _rb.isKinematic = false;
             _target = null;
         }

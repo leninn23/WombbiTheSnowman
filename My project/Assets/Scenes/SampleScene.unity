@@ -471,6 +471,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2313261491312308924, guid: fc4e4927aac588e44bd7194b5e73a725, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313261491312308924, guid: fc4e4927aac588e44bd7194b5e73a725, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 6.93
       objectReference: {fileID: 0}
@@ -484,7 +488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8503175317976799329, guid: fc4e4927aac588e44bd7194b5e73a725, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.790707
+      value: -8.45
       objectReference: {fileID: 0}
     - target: {fileID: 8503175317976799329, guid: fc4e4927aac588e44bd7194b5e73a725, type: 3}
       propertyPath: m_LocalPosition.y

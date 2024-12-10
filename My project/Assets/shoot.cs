@@ -37,7 +37,6 @@ public class shoot : MonoBehaviour
             if(collision.gameObject.TryGetComponent(out IDamagable d))
             {
                 d.Damage(damage);
-
             }
         }
         Destroy(gameObject);

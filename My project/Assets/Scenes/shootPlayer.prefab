@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca04f52802aa72a409f9fd17faab0a8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeAlive: 15
+  timeAlive: 7
   ally: Player
   enemy: enemigo
   damage: 2
