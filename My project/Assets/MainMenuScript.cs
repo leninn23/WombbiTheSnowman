@@ -19,4 +19,14 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("Quit");
         Application.Quit();
     }
+
+    public void Retry(){
+
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void BackToMenu(){
+        SceneManager.LoadScene("MainMenu");
+
+    }
 }
