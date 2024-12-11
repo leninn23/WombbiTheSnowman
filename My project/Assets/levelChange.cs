@@ -23,6 +23,7 @@ public class levelChange : MonoBehaviour
         // Asegúrate de que el nombre del nivel esté correctamente escrito
         if (!string.IsNullOrEmpty(nextLevel))
         {
+            Debug.Log("Estamos aquí");
             SceneManager.LoadScene(nextLevel);
         }
         else
@@ -30,5 +31,10 @@ public class levelChange : MonoBehaviour
             Debug.LogError("El nombre del siguiente nivel no está configurado.");
         }
 
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 }

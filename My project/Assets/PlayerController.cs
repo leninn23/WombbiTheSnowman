@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     public float speed;
     public float jumpForce;
     public GameObject snowBallPrefab;
-    public float initialHealth;
+    [SerializeField] public float initialHealth;
     public float maxHealth;
     //public float maxSize;
     public GameObject snowBulletPrefab;
@@ -101,6 +101,11 @@ public class PlayerController : MonoBehaviour, IDamagable
         }
         
        
+    }
+
+    public float GetVida()
+    {
+        return initialHealth;
     }
 
     void AssignValues(float value)
