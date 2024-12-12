@@ -56,7 +56,8 @@ public class Attack : MonoBehaviour
             if(Time.time >= timeLastHit + attackSpeed)
         	{
                 var fireBall = Instantiate(fireBallPrefab,colliderCenter,Quaternion.identity);
-                Vector3 h = target.transform.position - transform.position;
+                AudioManager.PlaySound(SoundType.LANZAR_FUEGO);
+                Vector3 h = new Vector3(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y - 0.5f, target.transform.position.z - transform.position.z);
                 h.Normalize();
                 fireBall.GetComponent<shoot>().direction = h;
                 timeLastHit = Time.time;

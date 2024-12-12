@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
     public PlayerController player;
     public int puntosVidaPre;
     public int puntosVidaPost;
+    public int puntosTotales;
+    public TextMeshProUGUI vidas;
+    public TextMeshProUGUI muni;
     public Transform mask;
 
     private float minY = -3.2f; // Posición mínima vertical
@@ -21,6 +24,8 @@ public class UIManager : MonoBehaviour
     {
         puntosVidaPre = (int)player.initialHealth;
         mask.localPosition = Vector3.zero;
+        puntosTotales = player.vidas;
+
         /*TextMeshPro text = this.transform.Find("Munición").GetComponent<TextMeshPro>();
         if (text == null)
         {
@@ -46,26 +51,14 @@ public class UIManager : MonoBehaviour
         Debug.Log("Posición: " + mask.localPosition);
 
         puntosVidaPre = puntosVidaPost;
-        //.SetText(puntosVida.ToString());
 
-        /*if (puntosVida > 19)
-        {
-            this.transform.GetChild(3).gameObject.SetActive(true);
-            this.transform.GetChild(2).gameObject.SetActive(false);
-            this.transform.GetChild(4).gameObject.SetActive(false);
 
-        }
-        else if (puntosVida <= 19 && puntosVida > 9)
-        {
-            this.transform.GetChild(3).gameObject.SetActive(false);
-            this.transform.GetChild(2).gameObject.SetActive(true);
-            this.transform.GetChild(4).gameObject.SetActive(false);
-        }
-        else
-        {
-            this.transform.GetChild(3).gameObject.SetActive(false);
-            this.transform.GetChild(2).gameObject.SetActive(false);
-            this.transform.GetChild(4).gameObject.SetActive(true);
-        }*/
+
+
+        muni.SetText(puntosVidaPost.ToString());
+
+        puntosTotales = player.vidas;
+        vidas.SetText(puntosTotales.ToString());
+
     }
 }

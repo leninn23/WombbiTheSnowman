@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class levelChange : MonoBehaviour
 {
     public string nextLevel;
+    public PlayerController player;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,11 +31,15 @@ public class levelChange : MonoBehaviour
         {
             Debug.LogError("El nombre del siguiente nivel no está configurado.");
         }
-
     }
 
-    public void Play()
+    private void Update()
     {
-        SceneManager.LoadScene("SampleScene");
+        if(player.vidas == 0)
+        {
+            player.vidas = 3;
+            Debug.Log("Vidas del level: " + player.vidas);
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }

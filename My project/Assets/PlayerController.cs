@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     //public float maxSize;
     public GameObject snowBulletPrefab;
     public float shootForce;
+    public int vidas;
     
     private Vector2 _input;
     private Rigidbody _rb;
@@ -313,10 +314,13 @@ public class PlayerController : MonoBehaviour, IDamagable
     public void Die()
     {
         // Desactiva al jugador momentáneamente
+        vidas--;
+        Debug.Log("Vidas del jugador: " + vidas);
         gameObject.SetActive(false);
 
         // Llama a la función de reaparición después de un retraso
         Invoke(nameof(Respawn), respawnDelay);
+
     }
 
     private void Respawn()
@@ -332,7 +336,7 @@ public class PlayerController : MonoBehaviour, IDamagable
     {
         Debug.Log(transform.lossyScale);
         Debug.DrawRay(transform.position, -transform.up * 2.1f, Color.red, 1f);
-        bool grounded = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale / 2f, Vector3.down, Quaternion.identity, transform.lossyScale.y + 0.2f, LayerMask.GetMask("suelo"));
+        bool grounded = Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale / 2f, Vector3.down, Quaternion.identity, transform.lossyScale.y + 0.2f, LayerMask.GetMask("suelo")) || Physics.BoxCast(transform.position + Vector3.up * 0.1f, transform.lossyScale / 2f, Vector3.down, Quaternion.identity, transform.lossyScale.y + 0.2f, LayerMask.GetMask("sueloEnemigo"));
         //Debug.Log($"Grounded: {grounded}"); // Debug if the player is grounded
         return grounded;
         //return Physics.Raycast(transform.position + Vector3.right * transform.lossyScale.x / 2f, Vector3.down, transform.lossyScale.y / 2f + 0.1f, LayerMask.GetMask("suelo"))
